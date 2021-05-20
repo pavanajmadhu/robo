@@ -4,7 +4,7 @@ const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
 var robo,robo1,Fire,eagle,electoEagle,mobile,Tower,Tank,giant;
-var enemy,enemygrp;
+var enemy,enemygrp,bullet,gun;
 
 function preload()
 {
@@ -48,32 +48,51 @@ enemy = createSprite(windowWidth/2,windowHeight/4,10,40);
 
 
 function draw() {
-  rectMode(CENTER);
   background("white");
 
   bird.display();
   if(keyCode===32){
 	Body.bird.x+=20
   }
- Obstacle();
+  createEdgeSprites();
+// Obstacle();
   
-  drawSprites();
+ drawSprites();
  
 }
 
 function Obstacle(){
-	if(frameCount % 20 === 0) {
-		enemy = createSprite(windowWidth/2,windowHeight/4,10,40);
+	if(frameCount % 50 === 0) {
 
-		enemy.velocityY= 6;
 		
-		var rand = Math.round(random(1,3));
+		var rand = Math.round(random(1));
 		switch(rand) {
-		  case 1: tank();
+		  case 1: function tank(){
+			var tank1=createSprite(windowWidth/2,windowHeight/4,10,40)
+			tank1=loadImage(Tank)
+			tank1.velocityX=-3
+            tank1.bounceOf(edges);
+			bullet=createSprite(tank1.x,tank1.y-10,10,40)
+			bullet.addImage(Fire)
+			bullet.velocityY=-30;
+			}
 				  break;
-		  case 2: tower();
+		  case 2: function tower(){
+	enemy=createSprite(windowWidth/2,windowHeight/4,10,40)
+	enemy.addImage(Tower)
+	   }
 				  break;
-		  case 3: fire();
+		  case 3: 
+		  function gunscene(){
+			  gun=createSprite(windowWidth/2,windowHeight/4,10,40)
+			  gun.addImage(robo1)
+			  if(frameCount%3===0){
+				  bullet=createSprite(random(windowWidth/4,windowWidth/2),gun.y-10,10,40)
+					  bullet.addImage(Fire)
+					  bullet.velocityY=-30;
+		  
+			  }
+		  }
 				  break;
 				  default:break
 		  
@@ -83,16 +102,9 @@ function Obstacle(){
 
 }
 
-function tank(){
 
-}
 
-function tower(){
 
-}
 
-function fire(){
-
-}
 
 
