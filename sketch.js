@@ -139,7 +139,7 @@ enemy.visible=true;
 function tank(){
 	if(frameCount%140===0 && propability>5){
   var tank1=createSprite(windowWidth/2,windowHeight/4,10,40)
-  tank1=loadImage("tank",Tank)
+  tank1.addImage("tank",Tank)
   tank1.velocityX=-3
   //tank1.bounceOff(edges);
   bullet=createSprite(tank1.x,tank1.y-10,10,40)
